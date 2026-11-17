@@ -1,0 +1,1022 @@
+/* ---------- tokens ---------- */
+:root {
+  /* ivory paper, espresso ink, antique gold, and kumkum red for the
+     ampersand and the muhurtam */
+  --ground: #fbf7f0;
+  --paper: #fffdf8;
+  --ground-deep: #f3eadb;
+  --text: #2e2019;
+  --text-dim: #6e5b4c;
+  --text-faint: #806c5b;
+  --gold: #8e6428;
+  --gold-line: #cfae78;
+  --kumkum: #b3403a;
+
+  /* silhouettes: warm brown on sand, henna lines in pale cream */
+  --motif: #8c6b47;
+  --motif-soft: #cdb38b;
+  --motif-light: #f8ead0;
+  --turmeric: #dba12e;
+  --turmeric-deep: #b27b1a;
+  --marigold: #e28a26;
+  --flame: #eba23a;
+  --motif-deep: #6c4f33;
+  --window: #f6d68c;
+
+  --display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --body: 'Karla', ui-sans-serif, system-ui, sans-serif;
+  --telugu: 'Noto Serif Telugu', 'Gautami', serif;
+
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --rule: 1px solid rgba(46, 32, 25, 0.12);
+}
+
+/* ---------- base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.04;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: var(--pad);
+  top: 1rem;
+  z-index: 50;
+  background: var(--paper);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--gold-line);
+}
+
+/* ---------- shared layout ---------- */
+section[id] {
+  scroll-margin-top: 3.75rem;
+}
+
+.section {
+  padding: clamp(4rem, 9vw, 7.5rem) var(--pad);
+}
+
+.wrap {
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+}
+
+.section-lede {
+  max-width: 44ch;
+  margin-top: 1.1rem;
+  color: var(--text-dim);
+  font-size: 1.0625rem;
+}
+
+/* ---------- header ---------- */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem var(--pad);
+  background: rgba(251, 247, 240, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule);
+  transform: translateY(-105%);
+  transition: transform 420ms ease;
+}
+
+.header[data-shown='true'] {
+  transform: translateY(0);
+}
+
+.header-brand {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.header-brand em {
+  font-style: italic;
+  color: var(--kumkum);
+  padding: 0 0.1em;
+}
+
+.header-nav {
+  display: flex;
+  gap: clamp(0.9rem, 3vw, 2rem);
+  font-size: 0.875rem;
+}
+
+.header-nav a {
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color 160ms ease;
+}
+
+.header-nav a:hover {
+  color: var(--text);
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  background:
+    radial-gradient(120% 75% at 50% 42%, var(--ground) 0%, var(--ground-deep) 72%);
+}
+
+.hero-film {
+  position: relative;
+  height: 100svh;
+  width: 100%;
+}
+
+.hero-film video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.hero-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: rgba(46, 32, 25, 0.4);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.hero-play span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid var(--gold-line);
+}
+
+/* the thread that carries you from the film into the schedule */
+.hero-thread {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 900ms ease;
+  pointer-events: none;
+}
+
+.hero-thread[data-shown='true'] {
+  opacity: 1;
+}
+
+.hero-thread i {
+  display: block;
+  width: 1px;
+  height: 3.5rem;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+}
+
+.hero-replay {
+  position: absolute;
+  right: var(--pad);
+  bottom: 1.5rem;
+  border: 0;
+  background: none;
+  color: var(--text-faint);
+  font-family: var(--body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  opacity: 0;
+  transition: opacity 600ms ease, color 160ms ease;
+}
+
+.hero-replay[data-shown='true'] {
+  opacity: 1;
+}
+
+.hero-replay:hover {
+  color: var(--text-dim);
+}
+
+/* ---------- couple ---------- */
+.couple {
+  border-top: var(--rule);
+}
+
+.couple-wrap {
+  display: grid;
+  grid-template-columns: 1fr 18rem;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+.couple-text {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.couple-kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* a small matted frame: gold line, then a paper mat, then the photo itself,
+   with four corner marks like a mounted print */
+.couple-frame {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 18rem;
+  padding: 0.9rem;
+  background: var(--paper);
+  border: 1px solid var(--gold-line);
+  box-shadow: 0 12px 28px rgba(46, 32, 25, 0.14);
+}
+
+.couple-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid rgba(46, 32, 25, 0.16);
+}
+
+.couple-corner {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid var(--gold);
+  pointer-events: none;
+}
+
+.couple-corner-tl {
+  top: 0.55rem;
+  left: 0.55rem;
+  border-width: 2px 0 0 2px;
+}
+
+.couple-corner-tr {
+  top: 0.55rem;
+  right: 0.55rem;
+  border-width: 2px 2px 0 0;
+}
+
+.couple-corner-bl {
+  bottom: 0.55rem;
+  left: 0.55rem;
+  border-width: 0 0 2px 2px;
+}
+
+.couple-corner-br {
+  bottom: 0.55rem;
+  right: 0.55rem;
+  border-width: 0 2px 2px 0;
+}
+
+/* ---------- schedule ---------- */
+.schedule {
+  border-top: var(--rule);
+}
+
+/* A chapter is one venue: a framed block of ivory paper. Silhouettes are
+   transparent around their shapes, so the gradients here are the warm light
+   behind them. */
+.chapter {
+  --chapter-pad: clamp(1.25rem, 4vw, 3rem);
+  position: relative;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2.25rem, 5vw, 3.5rem) var(--chapter-pad) 0;
+  background: var(--paper);
+  border: 1px solid var(--gold-line);
+  overflow: clip;
+}
+
+.chapter + .chapter {
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.chapter-head {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+}
+
+.chapter-when {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.chapter-name {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+}
+
+.chapter-place {
+  color: var(--text-dim);
+  font-size: 0.9375rem;
+}
+
+.chapter-place a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.chapter-place a:hover {
+  border-bottom-color: var(--gold);
+}
+
+/* farm: a thoranam across the top, then a card per ceremony */
+.chapter-farm {
+  padding-top: clamp(4.5rem, 9vw, 6rem);
+  padding-bottom: var(--chapter-pad);
+}
+
+.thoranam {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: clamp(2.75rem, 6vw, 4.25rem);
+}
+
+.m-rope {
+  fill: none;
+  stroke: var(--motif);
+  stroke-width: 2;
+}
+
+.scene-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.scene-card {
+  --glow: #ebc88e;
+  --haze: #f6e6cb;
+  display: flex;
+  flex-direction: column;
+  background: var(--ground);
+  border: 1px solid rgba(46, 32, 25, 0.1);
+  overflow: clip;
+}
+
+/* afternoon for the mehendi, turmeric morning for the haldi, dusk after */
+.scene-card[data-sky='afternoon'] {
+  --glow: #ecbd83;
+  --haze: #f6e3c6;
+}
+
+.scene-card[data-sky='morning'] {
+  --glow: #f1cf72;
+  --haze: #f8ebc6;
+}
+
+.scene-card[data-sky='muhurtam'] {
+  --glow: #efd49b;
+  --haze: #f8eed8;
+}
+
+.scene-card[data-sky='evening'] {
+  --glow: #dfa47f;
+  --haze: #f1ddd0;
+}
+
+.scene-card[data-sky='dusk'] {
+  --glow: #e6b19c;
+  --haze: #f4dfd5;
+}
+
+.scene-card-text {
+  display: grid;
+  gap: 0.35rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.1rem, 2.5vw, 1.5rem) 0;
+}
+
+.scene-card-text .event-name {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+}
+
+.scene-card-text .event-note {
+  font-size: 0.9rem;
+}
+
+.scene-card-sky {
+  margin-top: auto;
+  padding-top: clamp(1rem, 3vw, 2rem);
+  background:
+    radial-gradient(60% 55% at 50% 72%, var(--glow) 0%, transparent 75%),
+    linear-gradient(to bottom, var(--ground) 0%, var(--haze) 38%, var(--glow) 100%);
+}
+
+.motif {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.m-dark { fill: var(--motif); }
+.m-soft { fill: var(--motif-soft); }
+.m-light { fill: var(--motif-light); }
+.m-turmeric { fill: var(--turmeric); }
+.m-turmeric-deep { fill: var(--turmeric-deep); }
+.m-marigold { fill: var(--marigold); }
+.m-marigold-heart { fill: var(--turmeric-deep); }
+.m-kumkum { fill: var(--kumkum); }
+.m-flame { fill: var(--flame); }
+.m-glow { fill: var(--flame); opacity: 0.22; }
+.m-deep { fill: var(--motif-deep); }
+.m-window { fill: var(--window); }
+.m-bulb { fill: var(--window); stroke: var(--flame); stroke-width: 0.8; }
+.m-motif-fringe { fill: var(--motif); }
+
+.m-rope-thin {
+  fill: none;
+  stroke: var(--motif-deep);
+  stroke-width: 1;
+}
+
+.m-line {
+  fill: none;
+  stroke: var(--motif-light);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.m-handle {
+  fill: none;
+  stroke: var(--motif);
+  stroke-width: 5;
+}
+
+.scene-card .event-day {
+  color: var(--text-faint);
+}
+
+/* estate: an arch drawn across the whole chapter */
+.chapter-estate {
+  border-radius: 50% 50% 0 0 / clamp(3rem, 9vw, 8rem) clamp(3rem, 9vw, 8rem) 0 0;
+  padding-top: clamp(3.5rem, 9vw, 6rem);
+  padding-bottom: var(--chapter-pad);
+}
+
+.scene-cards[data-count='2'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+/* the muhurtam is the one kumkum moment in the schedule */
+.scene-card[data-peak='true'] {
+  border-color: rgba(179, 64, 58, 0.35);
+}
+
+.scene-card[data-peak='true'] .event-time {
+  color: var(--kumkum);
+}
+
+.event-time {
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+}
+
+.event-name {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.event-telugu {
+  font-family: var(--telugu);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--gold);
+}
+
+.event-note {
+  max-width: 52ch;
+  margin-top: 0.4rem;
+  color: var(--text-dim);
+  font-size: 0.9375rem;
+}
+
+.schedule-foot {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  color: var(--text-faint);
+  font-size: 0.875rem;
+  max-width: 50ch;
+}
+
+/* ---------- rsvp ---------- */
+.rsvp {
+  border-top: var(--rule);
+}
+
+.rsvp .wrap {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.rsvp .section-lede {
+  margin-inline: auto;
+}
+
+.rsvp-kicker,
+.rsvp-eyebrow,
+.rsvp-field label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.rsvp-kicker {
+  margin-bottom: 0.5rem;
+}
+
+.rsvp-card {
+  width: 100%;
+  max-width: 40rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--paper);
+  border: 1px solid var(--gold-line);
+  text-align: left;
+}
+
+.rsvp-form {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.rsvp-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.rsvp-field input,
+.rsvp-field select {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  padding: 0.75rem 0.9rem;
+  background: var(--ground);
+  border: 1px solid rgba(46, 32, 25, 0.2);
+  border-radius: 3px;
+}
+
+.rsvp-field select {
+  max-width: 8rem;
+}
+
+.rsvp-field input:focus-visible,
+.rsvp-field select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+  border-color: var(--gold);
+}
+
+.rsvp-field [aria-invalid='true'] {
+  border-color: var(--kumkum);
+}
+
+.rsvp-choice {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.rsvp-choice legend {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0;
+  margin-bottom: 0.1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.rsvp-choice[data-large='true'] legend {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3vw, 1.6rem);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.rsvp-events {
+  display: grid;
+}
+
+.rsvp-events .rsvp-choice {
+  padding-block: 1.4rem;
+  border-top: var(--rule);
+}
+
+.rsvp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.rsvp-pill {
+  position: relative;
+  cursor: pointer;
+}
+
+.rsvp-pill input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.rsvp-pill span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.15rem;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--paper);
+  border: 1px solid var(--gold-line);
+  border-radius: 999px;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.rsvp-pill:hover span {
+  border-color: var(--gold);
+}
+
+.rsvp-pill input:checked + span {
+  background: #f3e6cf;
+  border-color: var(--gold);
+}
+
+.rsvp-pill input:checked + span::before {
+  content: '✓';
+  color: var(--gold);
+}
+
+.rsvp-pill input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.rsvp-choice[aria-invalid='true'] .rsvp-pill span {
+  border-color: rgba(179, 64, 58, 0.55);
+}
+
+.rsvp-error {
+  color: var(--kumkum);
+  font-size: 0.875rem;
+}
+
+.rsvp-banner a {
+  color: inherit;
+}
+
+.rsvp-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.rsvp-send {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  background: var(--text);
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.rsvp-send:hover {
+  background: #4a3527;
+}
+
+.rsvp-send:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.rsvp-thanks {
+  display: grid;
+  gap: 0.9rem;
+  color: var(--text-dim);
+}
+
+.rsvp-thanks h3 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--text);
+}
+
+.rsvp-thanks h3:focus {
+  outline: none;
+}
+
+.rsvp-thanks ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rsvp-thanks li span {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.rsvp-note {
+  font-size: 0.875rem;
+  color: var(--text-faint);
+}
+
+.rsvp-link {
+  justify-self: start;
+  padding: 0;
+  font: inherit;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--gold-line);
+  cursor: pointer;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  padding: 2rem var(--pad) 2.75rem;
+  border-top: var(--rule);
+  display: grid;
+  gap: 0.75rem;
+  color: var(--text-faint);
+  font-size: 0.8125rem;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.footer-names {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--text-dim);
+}
+
+.footer-names em {
+  font-style: italic;
+  color: var(--kumkum);
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.footer-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--gold-line);
+  text-underline-offset: 2px;
+}
+
+.footer-credit a:hover {
+  text-decoration-color: var(--gold);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .couple-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .couple-frame {
+    justify-self: center;
+  }
+
+  .scene-cards,
+  .scene-cards[data-count='2'] {
+    grid-template-columns: 1fr;
+  }
+
+  /* stacked cards keep the scene from growing too tall */
+  .scene-card-sky .motif {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-nav {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+  }
+}
+
+/* keep the hidden replay control out of the tab order's way */
+.hero-replay[data-shown='false'] {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ---------- music toggle ---------- */
+.music-toggle {
+  position: fixed;
+  right: clamp(1rem, 4vw, 1.75rem);
+  bottom: clamp(1rem, 4vw, 1.75rem);
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--text-dim);
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--gold-line);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(46, 32, 25, 0.1);
+  transition: color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.music-toggle:hover {
+  color: var(--text);
+  border-color: var(--gold);
+}
+
+.music-toggle:active {
+  transform: scale(0.94);
+}
+
+/* ---------- petals ---------- */
+/* a few flowers drifting down behind the page, once the film is behind
+   you (`data-shown`, tied to the header's reveal) */
+.petals {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.petals[data-shown='true'] {
+  opacity: 1;
+}
+
+.petal {
+  position: absolute;
+  top: -8%;
+  display: block;
+  opacity: 0.55;
+  animation: petal-fall var(--duration) linear var(--delay) infinite;
+}
+
+.petal[data-kind='marigold'] .petal-heart,
+.petal[data-kind='marigold'] ellipse {
+  fill: var(--marigold);
+}
+
+.petal[data-kind='kumkum'] ellipse {
+  fill: var(--kumkum);
+}
+
+.petal[data-kind='kumkum'] .petal-heart {
+  fill: var(--turmeric);
+}
+
+.petal[data-kind='gold'] ellipse {
+  fill: var(--gold-line);
+}
+
+.petal[data-kind='gold'] .petal-heart {
+  fill: var(--gold);
+}
+
+@keyframes petal-fall {
+  from {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(var(--drift), 55vh) rotate(var(--spin));
+  }
+  to {
+    transform: translate(0, 118vh) rotate(calc(var(--spin) * 2));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petals {
+    display: none;
+  }
+}
+
